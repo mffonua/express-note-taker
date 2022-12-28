@@ -10,17 +10,18 @@ module.exports = function(app) {
 
      // route to get notes
     app.get("/api/notes", function(req,res) {
-        res.json(noteData)
+        res.json(noteData);
     });
 
     // route to add a new note and add it to the json file
     app.post("/api/notes", function (req, res) {
+
         let newNote = {
             id: uuid(),
             title: req.body.title,
             text: req.body.text
         };
-        console.log(newNote);
+
     
         noteData.push(newNote);
     
@@ -28,27 +29,30 @@ module.exports = function(app) {
             if (err) {
               return console.log(err);
             }
-           // console.log(noteData);
+           console.log("new note added");
           }
         );
     
-        res.send(noteData);
+        return res.send(noteData);
       });
 
+       // route to delete notes
       app.delete("/api/notes/:id", function(req,res) {
 
-        // console.log(req.body.title);
-        const noteToDelete = req.body.title;
+        
+        const noteToDelete = req.params.id;
     
-        const newNoteData = {};
+        const newNoteData = noteData.filter(note => note.id !== noteToDelete)
     
-        for (let i = 0; i < noteData.length; i++) {
-            if (noteToDelete !== noteData[i].title) {
-                newNoteData.push()
+        fs.writeFile(__dirname + "/../db/db.json", JSON.stringify(newNoteData, null, "\t"), function (err, data) {
+            if (err) {
+              return console.log(err);
             }
+            console.log("note deleted");
+          }
+        );
     
-        }
-    
-        res.send("note deleted")
+        return res.send(noteData)
       });
+      
     };

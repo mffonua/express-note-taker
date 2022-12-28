@@ -17,11 +17,5 @@ require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
 
-
-//TODO: create a GET route to render index.html "*"
-//TODO: create a GET route to read the json file - "/api/notes"
-//TODO: create a POST route to create a new note and add it to the json file
-//TODO: create a DELETE route containing the id of a note to delete
-
 //create server listener
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));

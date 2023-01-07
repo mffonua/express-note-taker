@@ -11,9 +11,14 @@ app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 app.use(express.static('public'));
 
-// API Routes
+// API Routes reads the db.json file and returns all saved notes as JSON
 app.get('/api/notes', (req, res) => {
-    res.json(data);
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
+        if (error) {
+            console.error(error);
+        };
+        res.json(JSON.parse(data));
+    });
 });
 
 
@@ -23,11 +28,6 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
     
 })
-
-
-app.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/notes.html'));
-});
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'));

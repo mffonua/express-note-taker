@@ -22,13 +22,26 @@
 ---
 
 ## Description
-An application that can be used to write, save, and delete notes using Node and Express, utilizing JSON for data storage. With an already completed front-end, my role was to build the back-end and connect it to the front-end.
+This application can be used to write, save and delete notes. This application uses an Express.js back end and will save and retrieve note data from a JSON file.
+
 ## Visuals
-![screenshot 1](media/note-taker-main.png)
+View the live application here:
+
+Main Page
+![screenshot 1](./Assets/note-taker-main.png)
 ---
-![screenshot 1](media/note-taker.png)
----
-![screenshot 1](media/note-taker-delete.png)
+Once Inside Note Taker
+![screenshot 2](./Assets/note-taker.png)
+--- 
+Deleted Notes
+![screenshot 4](./Assets/note-taker-add.png)
+--- 
+Added Notes
+![screenshot 3](./Assets/note-taker-delete.png)
+
+
+
+
 
 ---
 

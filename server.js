@@ -4,15 +4,15 @@ const path = require('path');
 const uniqid = require('uniqid');
 const util = require('util');
 
-const PORT = 3001;
-
-const readFromFile = util.promisify(fs.readFile);
+const PORT = process.env.PORT || 3001;
 
 // Sets up express app to handle data parsing
 const app = express();
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 app.use(express.static('public'));
+
+const readFromFile = util.promisify(fs.readFile);
 
 // Route to notes.html file
 app.get('/notes', (req, res) => {

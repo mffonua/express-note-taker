@@ -21,14 +21,29 @@ app.get('/api/notes', (req, res) => {
     });
 });
 
-
-// random number
-
-
+// Receives a new note to save on the request body, adds to db.json file, and returns new note to client
 app.post('/api/notes', (req, res) => {
-    
+    const { title, text } = req.body;
+    if (req.body) {
+        const newNote = {
+            id: uniqid(),
+            title,
+            text,
+        };
+        fs.readFile('./db/db.json', 'utf8', (err, data) => {
+            if (err) {
+                console.error(err);
+            } else {
+                const jsonParse = JSON.parse(data);
+                jsonParse.push(newNote);
+                fs.writeFile(newNote, json.stringify(jsonParse, null, 4), 
+                (err) => err ? console.error(err) : console.info(`nData written to ${newNote}`))
+            }
+        })
+    }    
 })
 
+// returns the index.html file
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'));
 });

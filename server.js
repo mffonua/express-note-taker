@@ -19,7 +19,7 @@ app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/notes.html'));
 });
 
-// API Routes reads the db.json file and returns all saved notes as JSON
+// API Routes -- reads the db.json file and returns all saved notes as JSON
 app.get('/api/notes', (req, res) => {
     readFromFile('./db/db.json').then((data) => {
         res.json(JSON.parse(data))
@@ -41,17 +41,17 @@ app.post('/api/notes', (req, res) => {
             } else {
                 const jsonParse = JSON.parse(data);
                 jsonParse.push(newNote);
-                fs.writeFile(newNote, json.stringify(jsonParse, null, 4), 
-                (err) => err ? console.error(err) : console.info(`nData written to ${newNote}`));
+                fs.writeFile('./db/db.json', JSON.stringify(jsonParse, null, 4), 
+                (err) => err ? console.error(err) : console.info('Success!'));
             }
         })
         res.json('note has been added')
     } else {
         res.error('note failed to add')
     }
-}); 
+});
 
-// Deletes Notes
+// Delete notes
 app.delete('/api/notes/:id', (req, res) => {
     readFromFile('./db/db.json')
     .then((data) => JSON.parse(data))
@@ -64,7 +64,7 @@ app.delete('/api/notes/:id', (req, res) => {
     })
 })
 
-// returns the index.html file
+// Returns the index.html file
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'));
 });

@@ -25,7 +25,7 @@
 This application can be used to write, save and delete notes. This application uses an Express.js back end and will save and retrieve note data from a JSON file.
 
 ## Visuals
-View the live application here:
+View the live application [HERE!!](https://express-note-taker00.herokuapp.com/)
 
 Main Page
 ![screenshot 1](./Assets/note-taker-main.png)

@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(__dirname, '/public'));
 
 const readFromFile = util.promisify(fs.readFile);
 
@@ -63,8 +63,6 @@ app.delete('/api/notes/:id', (req, res) => {
         res.json(`Item ${req.params.title} has been deleted!`);
     })
 })
-
-
 
 // returns the index.html file
 app.get('*', (req, res) => {

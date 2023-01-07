@@ -2,8 +2,11 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const uniqid = require('uniqid');
+const util = require('util');
 
 const PORT = 3001;
+
+const readFromFile = util.promisify(fs.readFile);
 
 // Sets up express app to handle data parsing
 const app = express();
@@ -11,13 +14,15 @@ app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 app.use(express.static('public'));
 
+// Route to notes.html file
+app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/notes.html'));
+});
+
 // API Routes reads the db.json file and returns all saved notes as JSON
 app.get('/api/notes', (req, res) => {
-    fs.readFile('./db/db.json', 'utf8', (err, data) => {
-        if (error) {
-            console.error(error);
-        };
-        res.json(JSON.parse(data));
+    readFromFile('./db/db.json').then((data) => {
+        res.json(JSON.parse(data))
     });
 });
 
@@ -37,11 +42,14 @@ app.post('/api/notes', (req, res) => {
                 const jsonParse = JSON.parse(data);
                 jsonParse.push(newNote);
                 fs.writeFile(newNote, json.stringify(jsonParse, null, 4), 
-                (err) => err ? console.error(err) : console.info(`nData written to ${newNote}`))
+                (err) => err ? console.error(err) : console.info(`nData written to ${newNote}`));
             }
         })
-    }    
-})
+        res.json('note has been added')
+    } else {
+        res.error('note failed to add')
+    }
+}); // DELETE NOTES??
 
 // returns the index.html file
 app.get('*', (req, res) => {

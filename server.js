@@ -49,7 +49,22 @@ app.post('/api/notes', (req, res) => {
     } else {
         res.error('note failed to add')
     }
-}); // DELETE NOTES??
+}); 
+
+// Deletes Notes
+app.delete('/api/notes/:id', (req, res) => {
+    readFromFile('./db/db.json')
+    .then((data) => JSON.parse(data))
+    .then((json) => {
+        const result = json.filter((note) => note.id !== req.params.id);
+
+        fs.writeFile('./db/db.json', JSON.stringify(result, null, 4), (err) => err ? console.error(err) : console.info('Success!'));
+
+        res.json(`Item ${req.params.title} has been deleted!`);
+    })
+})
+
+
 
 // returns the index.html file
 app.get('*', (req, res) => {

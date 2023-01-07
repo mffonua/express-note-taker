@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 // API Routes
 app.get('/api/notes', (req, res) => {
     res.json({
@@ -8,3 +10,5 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
 
 })
+
+module.exports = apiRoute;
